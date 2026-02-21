@@ -87,14 +87,14 @@ const Hero = () => {
                 overflow: 'hidden', zIndex: 3,
                 boxShadow: '0 0 30px rgba(6,182,212,0.2)',
               }}>
-                <img
-                  src="/rihab.png"
-                  alt="Rihab Lenzeri"
-                  style={{
-                    width: '100%', height: '100%',
-                    objectFit: 'cover', objectPosition: 'center top',
-                    filter: 'brightness(1.05) contrast(1.05)',
-                  }}
+                <img 
+                src="/PortFolio/rihab.png"  // Changé : F majuscule !
+                alt="Rihab Lenzeri"
+                className="w-80 h-80 object-contain"
+                style={{
+                    opacity: 0.85,
+                    filter: 'drop-shadow(0 0 10px rgba(6, 182, 212, 0.3))'
+                }}
                 />
                 {/* Bottom transparent fade */}
                 <div style={{
