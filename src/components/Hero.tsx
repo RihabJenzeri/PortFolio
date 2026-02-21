@@ -31,120 +31,158 @@ const Hero = () => {
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)' }}
     >
-      {/* Grid background */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: `
-          linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px',
+      {/* Subtle grid */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: `linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px',
       }} />
 
-      {/* Glow orbs */}
-      <div className="absolute" style={{
-        top: '20%', left: '5%', width: '500px', height: '500px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(6,182,212,0.08), transparent 70%)',
-        filter: 'blur(30px)',
+      {/* Glow blobs */}
+      <div className="absolute pointer-events-none" style={{
+        top: '10%', left: '10%', width: '300px', height: '300px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(6,182,212,0.1), transparent 70%)', filter: 'blur(40px)',
       }} />
-      <div className="absolute" style={{
-        bottom: '10%', right: '5%', width: '400px', height: '400px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%)',
-        filter: 'blur(30px)',
+      <div className="absolute pointer-events-none" style={{
+        bottom: '10%', right: '10%', width: '250px', height: '250px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%)', filter: 'blur(40px)',
       }} />
 
-      {/* ===== IMAGE TRANSPARENTE EN ARRIÈRE-PLAN ===== */}
-      <div
-        className="absolute"
-        style={{
-          left: '0',
-          top: '0',
-          width: '55%',
-          height: '100%',
-          opacity: isVisible ? 1 : 0,
-          transition: 'opacity 1.2s ease',
-        }}
-      >
-        {/* L'image avec fondu transparent */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'url(/rihab.png)',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center bottom',
-          WebkitMaskImage: `linear-gradient(to right, transparent 0%, black 25%, black 55%, transparent 100%),
-            linear-gradient(to top, transparent 0%, black 12%, black 88%, transparent 100%)`,
-          WebkitMaskComposite: 'source-in',
-          maskImage: `linear-gradient(to right, transparent 0%, black 25%, black 55%, transparent 100%),
-            linear-gradient(to top, transparent 0%, black 12%, black 88%, transparent 100%)`,
-          maskComposite: 'intersect',
-          filter: 'brightness(0.9) contrast(1.05) saturate(0.9)',
-        }} />
+      <div className="w-full max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
+        <div
+          className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transition: 'opacity 0.8s ease',
+          }}
+        >
 
-        {/* Overlay pour fondre avec le fond */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: `
-            linear-gradient(to right, #0f172a 0%, transparent 25%, transparent 55%, #0f172a 100%),
-            linear-gradient(to top, #0f172a 0%, transparent 12%)
-          `,
-        }} />
-      </div>
-
-      {/* ===== CONTENU PRINCIPAL ===== */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-
-          {/* Espace gauche pour l'image transparente */}
-          <div className="lg:w-1/2 hidden lg:block" />
-
-          {/* Contenu texte à droite */}
+          {/* ===== IMAGE CRÉATIVE ===== */}
           <div
-            className="lg:w-1/2 text-left"
+            className="flex-shrink-0 flex items-center justify-center"
             style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateX(0)' : 'translateX(40px)',
-              transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s, opacity 0.9s ease 0.1s',
+            }}
+          >
+            {/* Outer glow ring */}
+            <div style={{ position: 'relative', width: '260px', height: '260px' }}>
+
+              {/* Spinning gradient border */}
+              <div style={{
+                position: 'absolute', inset: '-3px', borderRadius: '50%',
+                background: 'conic-gradient(from 0deg, #06b6d4, #3b82f6, #818cf8, #06b6d4)',
+                animation: 'spin 6s linear infinite',
+                zIndex: 1,
+              }} />
+
+              {/* White gap ring */}
+              <div style={{
+                position: 'absolute', inset: '0px', borderRadius: '50%',
+                background: '#0f172a', zIndex: 2,
+              }} />
+
+              {/* Image clipped in circle */}
+              <div style={{
+                position: 'absolute', inset: '6px', borderRadius: '50%',
+                overflow: 'hidden', zIndex: 3,
+                boxShadow: '0 0 30px rgba(6,182,212,0.2)',
+              }}>
+                <img
+                  src="/rihab.png"
+                  alt="Rihab Lenzeri"
+                  style={{
+                    width: '100%', height: '100%',
+                    objectFit: 'cover', objectPosition: 'center top',
+                    filter: 'brightness(1.05) contrast(1.05)',
+                  }}
+                />
+                {/* Bottom transparent fade */}
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%',
+                  background: 'linear-gradient(to top, rgba(15,23,42,0.5), transparent)',
+                }} />
+              </div>
+
+              {/* Floating badge — disponible */}
+              <div style={{
+                position: 'absolute', bottom: '8px', right: '-16px',
+                display: 'flex', alignItems: 'center', gap: '6px',
+                padding: '5px 12px', borderRadius: '20px',
+                background: 'rgba(15,23,42,0.95)',
+                border: '1px solid rgba(34,197,94,0.5)',
+                color: '#22c55e', fontSize: '11px', fontWeight: 600,
+                zIndex: 10, backdropFilter: 'blur(8px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+              }}>
+                <span style={{
+                  width: '7px', height: '7px', borderRadius: '50%',
+                  background: '#22c55e', display: 'inline-block',
+                  animation: 'pulse 2s infinite',
+                }} />
+                Disponible
+              </div>
+
+              {/* Floating badge — XP */}
+              <div style={{
+                position: 'absolute', top: '12px', left: '-16px',
+                padding: '8px 12px', borderRadius: '12px',
+                background: 'rgba(15,23,42,0.95)',
+                border: '1px solid rgba(6,182,212,0.4)',
+                zIndex: 10, backdropFilter: 'blur(8px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                textAlign: 'center',
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: 800, color: '#06b6d4', lineHeight: 1 }}>3+</div>
+                <div style={{ fontSize: '9px', color: '#64748b', lineHeight: 1.4 }}>ans XP</div>
+              </div>
+
+              {/* Small orbiting dot */}
+              <div style={{
+                position: 'absolute', top: '-4px', left: '50%',
+                width: '10px', height: '10px', marginLeft: '-5px',
+                borderRadius: '50%', background: '#06b6d4',
+                boxShadow: '0 0 10px #06b6d4',
+                zIndex: 4, animation: 'orbit 6s linear infinite',
+              }} />
+            </div>
+          </div>
+
+          {/* ===== TEXTE ===== */}
+          <div
+            style={{
+              flex: 1,
+              transform: isVisible ? 'translateX(0)' : 'translateX(30px)',
+              transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s, opacity 0.9s ease 0.2s',
             }}
           >
             {/* Label */}
-            <div className="flex items-center gap-3 mb-5">
-              <div style={{ width: '28px', height: '2px', background: '#06b6d4' }} />
-              <span style={{ color: '#06b6d4', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: 500 }}>
-                Portfolio
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+              <div style={{ width: '24px', height: '2px', background: '#06b6d4' }} />
+              <span style={{ color: '#06b6d4', fontSize: '11px', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: 500 }}>
+                Full Stack Developer
               </span>
             </div>
 
             <h1 style={{
-              fontSize: 'clamp(3.5rem, 6vw, 5rem)',
-              fontWeight: 800,
-              color: '#f1f5f9',
-              lineHeight: 1.05,
-              marginBottom: '6px',
-              letterSpacing: '-1px',
+              fontSize: 'clamp(2.8rem, 5vw, 4rem)',
+              fontWeight: 800, color: '#f1f5f9',
+              lineHeight: 1.05, marginBottom: '6px', letterSpacing: '-1px',
             }}>
               Rihab<span style={{ color: '#06b6d4' }}>.</span>
             </h1>
 
             <h2 style={{
-              fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
-              fontWeight: 300,
-              color: '#94a3b8',
-              marginBottom: '20px',
-              letterSpacing: '1px',
+              fontSize: 'clamp(1rem, 2vw, 1.3rem)',
+              fontWeight: 300, color: '#94a3b8',
+              marginBottom: '16px', letterSpacing: '0.5px',
             }}>
               Développeuse <span style={{ color: '#e2e8f0', fontWeight: 600 }}>Full Stack</span>
             </h2>
 
             <p style={{
-              color: '#64748b',
-              fontSize: '15px',
-              lineHeight: 1.9,
-              marginBottom: '32px',
-              maxWidth: '440px',
+              color: '#64748b', fontSize: '14px',
+              lineHeight: 1.8, marginBottom: '24px', maxWidth: '420px',
             }}>
-              Passionnée par le développement d'applications web et mobiles performantes.
               Spécialisée en{' '}
               <span style={{ color: '#ef4444', fontWeight: 600 }}>Angular</span>,{' '}
               <span style={{ color: '#f59e0b', fontWeight: 600 }}>Spring Boot</span>,{' '}
@@ -152,96 +190,68 @@ const Hero = () => {
               <span style={{ color: '#06b6d4', fontWeight: 600 }}>Flutter</span>.
             </p>
 
-            {/* Tech slider */}
-            <div style={{ marginBottom: '32px' }}>
-              <p style={{ color: '#334155', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '10px' }}>
-                Stack technique
+            {/* Tech slider badges */}
+            <div style={{ marginBottom: '24px' }}>
+              <p style={{ color: '#1e293b', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '8px' }}>
+                Stack
               </p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 {techStack.map((tech, i) => (
-                  <div
+                  <span
                     key={tech.label}
                     style={{
-                      padding: '5px 14px',
-                      borderRadius: '20px',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      background: currentSlide === i ? `${tech.color}20` : 'rgba(15,23,42,0.6)',
-                      border: `1px solid ${currentSlide === i ? tech.color : 'rgba(51,65,85,0.6)'}`,
+                      padding: '4px 12px', borderRadius: '20px',
+                      fontSize: '11px', fontWeight: 600,
+                      background: currentSlide === i ? `${tech.color}20` : 'rgba(15,23,42,0.7)',
+                      border: `1px solid ${currentSlide === i ? tech.color : 'rgba(51,65,85,0.5)'}`,
                       color: currentSlide === i ? tech.color : '#334155',
                       transition: 'all 0.4s ease',
                       transform: currentSlide === i ? 'translateY(-2px)' : 'none',
-                      boxShadow: currentSlide === i ? `0 4px 15px ${tech.color}25` : 'none',
+                      boxShadow: currentSlide === i ? `0 4px 12px ${tech.color}30` : 'none',
+                      display: 'inline-block',
                     }}
                   >
                     {tech.label}
-                  </div>
+                  </span>
                 ))}
               </div>
             </div>
 
-            {/* Icons */}
-            <div style={{ display: 'flex', gap: '24px', marginBottom: '36px', fontSize: '13px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#06b6d4' }}>
-                <Code size={16} /><span>Frontend</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f59e0b' }}>
-                <Database size={16} /><span>Backend</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#3b82f6' }}>
-                <Smartphone size={16} /><span>Mobile</span>
-              </div>
+            {/* Icons row */}
+            <div style={{ display: 'flex', gap: '20px', marginBottom: '28px', fontSize: '12px' }}>
+              {[
+                { icon: <Code size={14} />, label: 'Frontend', color: '#06b6d4' },
+                { icon: <Database size={14} />, label: 'Backend', color: '#f59e0b' },
+                { icon: <Smartphone size={14} />, label: 'Mobile', color: '#3b82f6' },
+              ].map(item => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '5px', color: item.color }}>
+                  {item.icon}<span>{item.label}</span>
+                </div>
+              ))}
             </div>
 
-            {/* Buttons */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
-              <a
-                href="#projects"
-                style={{
-                  padding: '13px 30px',
-                  background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
-                  color: '#fff',
-                  borderRadius: '8px',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 20px rgba(6,182,212,0.25)',
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(6,182,212,0.4)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.transform = '';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(6,182,212,0.25)';
-                }}
+            {/* CTA */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              <a href="#projects" style={{
+                padding: '11px 26px', borderRadius: '8px', fontWeight: 600,
+                fontSize: '13px', textDecoration: 'none', color: '#fff',
+                background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+                boxShadow: '0 4px 15px rgba(6,182,212,0.3)',
+                transition: 'all 0.3s ease', display: 'inline-block',
+              }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 25px rgba(6,182,212,0.4)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ''; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px rgba(6,182,212,0.3)'; }}
               >
                 Voir mes projets
               </a>
-              <a
-                href="#contact"
-                style={{
-                  padding: '13px 30px',
-                  background: 'transparent',
-                  color: '#06b6d4',
-                  borderRadius: '8px',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                  textDecoration: 'none',
-                  border: '1.5px solid rgba(6,182,212,0.5)',
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(6,182,212,0.08)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-                  (e.currentTarget as HTMLElement).style.borderColor = '#06b6d4';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  (e.currentTarget as HTMLElement).style.transform = '';
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(6,182,212,0.5)';
-                }}
+              <a href="#contact" style={{
+                padding: '11px 26px', borderRadius: '8px', fontWeight: 600,
+                fontSize: '13px', textDecoration: 'none', color: '#06b6d4',
+                border: '1.5px solid rgba(6,182,212,0.4)',
+                background: 'transparent', transition: 'all 0.3s ease', display: 'inline-block',
+              }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(6,182,212,0.08)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.transform = ''; }}
               >
                 Me contacter
               </a>
@@ -249,28 +259,33 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Scroll */}
+        {/* Scroll indicator */}
         <div style={{
-          position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '4px',
+          position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
         }}>
-          <span style={{ color: '#334155', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase' }}>Scroll</span>
           <div style={{ animation: 'bounce 2s infinite' }}>
-            <ArrowDown size={16} style={{ color: '#06b6d4' }} />
+            <ArrowDown size={16} style={{ color: '#06b6d4', opacity: 0.6 }} />
           </div>
         </div>
       </div>
 
       <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(0.8); }
+        }
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(6px); }
+          50% { transform: translateY(5px); }
+        }
+        @keyframes orbit {
+          from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+          to { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
         }
       `}</style>
     </section>
