@@ -1,71 +1,247 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowDown, Code, Database, Smartphone } from 'lucide-react';
 
+const techStack = [
+  { label: 'Angular', color: '#ef4444' },
+  { label: 'Spring Boot', color: '#f59e0b' },
+  { label: 'MySQL', color: '#3b82f6' },
+  { label: 'Flutter', color: '#06b6d4' },
+  { label: 'TypeScript', color: '#818cf8' },
+  { label: 'Docker', color: '#22d3ee' },
+];
+
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsVisible(true), 100);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % techStack.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)' }}
+    >
+      {/* Grid background */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: `
+          linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px)
+        `,
+        backgroundSize: '60px 60px',
+      }} />
+
+      {/* Glow orbs */}
+      <div className="absolute" style={{
+        top: '20%', left: '5%', width: '500px', height: '500px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(6,182,212,0.08), transparent 70%)',
+        filter: 'blur(30px)',
+      }} />
+      <div className="absolute" style={{
+        bottom: '10%', right: '5%', width: '400px', height: '400px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(59,130,246,0.08), transparent 70%)',
+        filter: 'blur(30px)',
+      }} />
+
+      {/* ===== IMAGE TRANSPARENTE EN ARRIÈRE-PLAN ===== */}
+      <div
+        className="absolute"
+        style={{
+          left: '0',
+          top: '0',
+          width: '55%',
+          height: '100%',
+          opacity: isVisible ? 1 : 0,
+          transition: 'opacity 1.2s ease',
+        }}
+      >
+        {/* L'image avec fondu transparent */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/rihab.png)',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center bottom',
+          WebkitMaskImage: `linear-gradient(to right, transparent 0%, black 25%, black 55%, transparent 100%),
+            linear-gradient(to top, transparent 0%, black 12%, black 88%, transparent 100%)`,
+          WebkitMaskComposite: 'source-in',
+          maskImage: `linear-gradient(to right, transparent 0%, black 25%, black 55%, transparent 100%),
+            linear-gradient(to top, transparent 0%, black 12%, black 88%, transparent 100%)`,
+          maskComposite: 'intersect',
+          filter: 'brightness(0.9) contrast(1.05) saturate(0.9)',
+        }} />
+
+        {/* Overlay pour fondre avec le fond */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: `
+            linear-gradient(to right, #0f172a 0%, transparent 25%, transparent 55%, #0f172a 100%),
+            linear-gradient(to top, #0f172a 0%, transparent 12%)
+          `,
         }} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Profile Image */}
-          <div className="lg:w-1/2 flex justify-center">
-            <div className="relative">
-              <img 
-                src="/images/rihab.png" 
-                alt="Rihab Lenzeri"
-                className="w-80 h-80 object-contain drop-shadow-2xl"
-              />
-            </div>
-          </div>
+      {/* ===== CONTENU PRINCIPAL ===== */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between">
 
-          {/* Hero Content */}
-          <div className="lg:w-1/2 text-left">
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Rihab<span className="text-cyan-400">.</span>
+          {/* Espace gauche pour l'image transparente */}
+          <div className="lg:w-1/2 hidden lg:block" />
+
+          {/* Contenu texte à droite */}
+          <div
+            className="lg:w-1/2 text-left"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateX(0)' : 'translateX(40px)',
+              transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
+            }}
+          >
+            {/* Label */}
+            <div className="flex items-center gap-3 mb-5">
+              <div style={{ width: '28px', height: '2px', background: '#06b6d4' }} />
+              <span style={{ color: '#06b6d4', fontSize: '12px', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: 500 }}>
+                Portfolio
+              </span>
+            </div>
+
+            <h1 style={{
+              fontSize: 'clamp(3.5rem, 6vw, 5rem)',
+              fontWeight: 800,
+              color: '#f1f5f9',
+              lineHeight: 1.05,
+              marginBottom: '6px',
+              letterSpacing: '-1px',
+            }}>
+              Rihab<span style={{ color: '#06b6d4' }}>.</span>
             </h1>
-            <h2 className="text-2xl lg:text-3xl text-gray-300 mb-6 font-light">
-              Développeuse Full Stack
+
+            <h2 style={{
+              fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
+              fontWeight: 300,
+              color: '#94a3b8',
+              marginBottom: '20px',
+              letterSpacing: '1px',
+            }}>
+              Développeuse <span style={{ color: '#e2e8f0', fontWeight: 600 }}>Full Stack</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-              Passionnée par le développement d'applications web et mobiles performantes et modernes. 
-              Spécialisée en <span className="text-cyan-400 font-semibold">Angular</span>, 
-              <span className="text-amber-400 font-semibold"> Spring Boot</span>, 
-              <span className="text-blue-400 font-semibold"> MySQL</span> et 
-              <span className="text-cyan-400 font-semibold"> Flutter</span>.
+
+            <p style={{
+              color: '#64748b',
+              fontSize: '15px',
+              lineHeight: 1.9,
+              marginBottom: '32px',
+              maxWidth: '440px',
+            }}>
+              Passionnée par le développement d'applications web et mobiles performantes.
+              Spécialisée en{' '}
+              <span style={{ color: '#ef4444', fontWeight: 600 }}>Angular</span>,{' '}
+              <span style={{ color: '#f59e0b', fontWeight: 600 }}>Spring Boot</span>,{' '}
+              <span style={{ color: '#3b82f6', fontWeight: 600 }}>MySQL</span> et{' '}
+              <span style={{ color: '#06b6d4', fontWeight: 600 }}>Flutter</span>.
             </p>
 
-            {/* Tech Icons */}
-            <div className="flex justify-center lg:justify-start space-x-6 mb-8">
-              <div className="flex items-center space-x-2 text-cyan-400">
-                <Code size={24} />
-                <span>Frontend</span>
-              </div>
-              <div className="flex items-center space-x-2 text-amber-400">
-                <Database size={24} />
-                <span>Backend</span>
-              </div>
-              <div className="flex items-center space-x-2 text-blue-400">
-                <Smartphone size={24} />
-                <span>Mobile</span>
+            {/* Tech slider */}
+            <div style={{ marginBottom: '32px' }}>
+              <p style={{ color: '#334155', fontSize: '11px', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '10px' }}>
+                Stack technique
+              </p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {techStack.map((tech, i) => (
+                  <div
+                    key={tech.label}
+                    style={{
+                      padding: '5px 14px',
+                      borderRadius: '20px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      background: currentSlide === i ? `${tech.color}20` : 'rgba(15,23,42,0.6)',
+                      border: `1px solid ${currentSlide === i ? tech.color : 'rgba(51,65,85,0.6)'}`,
+                      color: currentSlide === i ? tech.color : '#334155',
+                      transition: 'all 0.4s ease',
+                      transform: currentSlide === i ? 'translateY(-2px)' : 'none',
+                      boxShadow: currentSlide === i ? `0 4px 15px ${tech.color}25` : 'none',
+                    }}
+                  >
+                    {tech.label}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="#projects" 
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-center font-medium"
+            {/* Icons */}
+            <div style={{ display: 'flex', gap: '24px', marginBottom: '36px', fontSize: '13px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#06b6d4' }}>
+                <Code size={16} /><span>Frontend</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f59e0b' }}>
+                <Database size={16} /><span>Backend</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#3b82f6' }}>
+                <Smartphone size={16} /><span>Mobile</span>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+              <a
+                href="#projects"
+                style={{
+                  padding: '13px 30px',
+                  background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+                  color: '#fff',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 20px rgba(6,182,212,0.25)',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(6,182,212,0.4)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.transform = '';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(6,182,212,0.25)';
+                }}
               >
                 Voir mes projets
               </a>
-              <a 
-                href="#contact" 
-                className="px-8 py-3 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300 transform hover:scale-105 text-center font-medium"
+              <a
+                href="#contact"
+                style={{
+                  padding: '13px 30px',
+                  background: 'transparent',
+                  color: '#06b6d4',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  border: '1.5px solid rgba(6,182,212,0.5)',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(6,182,212,0.08)';
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+                  (e.currentTarget as HTMLElement).style.borderColor = '#06b6d4';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.background = 'transparent';
+                  (e.currentTarget as HTMLElement).style.transform = '';
+                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(6,182,212,0.5)';
+                }}
               >
                 Me contacter
               </a>
@@ -73,11 +249,30 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="text-cyan-400" size={24} />
+        {/* Scroll */}
+        <div style={{
+          position: 'absolute',
+          bottom: '32px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '4px',
+        }}>
+          <span style={{ color: '#334155', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase' }}>Scroll</span>
+          <div style={{ animation: 'bounce 2s infinite' }}>
+            <ArrowDown size={16} style={{ color: '#06b6d4' }} />
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(6px); }
+        }
+      `}</style>
     </section>
   );
 };
