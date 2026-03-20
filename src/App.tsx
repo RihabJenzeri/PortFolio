@@ -14,7 +14,7 @@ function App() {
       <SplashCursor />
       <Header />
       <Hero />
-      <About />
+      {/*<About />*/}
       <Skills />
       <Projects />
       <Contact />
