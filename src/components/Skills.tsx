@@ -47,22 +47,6 @@ const skillCategories = [
   },
 ];
 
-const tools = [
-  { name: 'Angular',     color: '#ef4444' },
-  { name: 'Spring Boot', color: '#22c55e' },
-  { name: 'Flutter',     color: '#06b6d4' },
-  { name: 'TypeScript',  color: '#818cf8' },
-  { name: 'MySQL',       color: '#3b82f6' },
-  { name: 'Docker',      color: '#38bdf8' },
-  { name: 'Node.js',     color: '#34d399' },
-  { name: 'n8n',         color: '#f97316' },
-  { name: 'Git',         color: '#f59e0b' },
-  { name: 'REST API',    color: '#a78bfa' },
-  { name: 'Java',        color: '#f59e0b' },
-  { name: 'PostgreSQL',  color: '#6366f1' },
-];
-
-// Animated bar component
 const SkillBar = ({ skill, visible }: { skill: { name: string; level: number; color: string }; visible: boolean }) => {
   const [hovered, setHovered] = useState(false);
   return (
@@ -91,14 +75,12 @@ const SkillBar = ({ skill, visible }: { skill: { name: string; level: number; co
           {skill.level}%
         </span>
         </div>
-        {/* Bar track */}
         <div style={{
           width: '100%', height: '4px',
           background: 'rgba(255,255,255,0.05)',
           borderRadius: '4px', overflow: 'hidden',
           position: 'relative',
         }}>
-          {/* Fill */}
           <div style={{
             height: '100%',
             width: visible ? `${skill.level}%` : '0%',
@@ -108,7 +90,6 @@ const SkillBar = ({ skill, visible }: { skill: { name: string; level: number; co
             boxShadow: hovered ? `0 0 10px ${skill.color}80` : 'none',
             position: 'relative',
           }}>
-            {/* Shine */}
             <div style={{
               position: 'absolute', right: 0, top: 0, bottom: 0,
               width: '6px',
@@ -128,7 +109,7 @@ const Skills = () => {
   useEffect(() => {
     const obs = new IntersectionObserver(
         ([e]) => { if (e.isIntersecting) setVisible(true); },
-        { threshold: 0.15 }
+        { threshold: 0.1 }
     );
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
@@ -208,10 +189,13 @@ const Skills = () => {
             </div>
           </div>
 
-          {/* ── SKILL CARDS GRID ── */}
+          {/* ── SKILL CARDS GRID ──
+            Desktop : 4 colonnes fixes (comportement original)
+            Mobile  : 1 colonne (via media query CSS)
+        ── */}
           <div className="skills-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(4, 1fr)', /* desktop : 4 colonnes */
             gap: '14px',
             marginBottom: '60px',
           }}>
@@ -260,6 +244,7 @@ const Skills = () => {
                       border: `1px solid ${cat.color}30`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: '16px', color: cat.color,
+                      flexShrink: 0,
                     }}>
                       {cat.icon}
                     </div>
@@ -280,12 +265,25 @@ const Skills = () => {
             ))}
           </div>
 
-
-
         </div>
 
+        {/* ── RESPONSIVE STYLES ── */}
         <style>{`
-        
+        /* Tablette : 2 colonnes */
+        @media (max-width: 1024px) {
+          .skills-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        /* Mobile : 1 colonne */
+        @media (max-width: 600px) {
+          .skills-grid {
+            grid-template-columns: 1fr !important;
+          }
+          #skills {
+            padding: 70px 0 50px !important;
+          }
+        }
       `}</style>
       </section>
   );

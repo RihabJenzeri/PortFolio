@@ -3,7 +3,6 @@ import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import GooeyNav from './GooeyNav';
 import { ProfileTrigger } from './ProfilePage';
 
-// ─── Sans "À propos" ───
 const navItems = [
   { label: 'Accueil',     href: '#home'     },
   { label: 'Compétences', href: '#skills'   },
@@ -54,26 +53,6 @@ const Header = () => {
             transition: 'height 0.3s ease',
           }}>
 
-            {/* ── LOGO TEXTE ── */}
-            {/*<a href="#home" style={{ textDecoration: 'none', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>*/}
-            {/*  <div style={{*/}
-            {/*    width: '32px', height: '32px', borderRadius: '9px',*/}
-            {/*    background: 'linear-gradient(135deg,#06b6d4,#3b82f6)',*/}
-            {/*    display: 'flex', alignItems: 'center', justifyContent: 'center',*/}
-            {/*    fontSize: '14px', fontWeight: 900, color: '#030912',*/}
-            {/*    fontFamily: "'DM Mono', monospace",*/}
-            {/*    boxShadow: '0 0 16px rgba(6,182,212,0.4)',*/}
-            {/*    flexShrink: 0,*/}
-            {/*  }}>R</div>*/}
-            {/*  <span style={{*/}
-            {/*    fontFamily: "'DM Mono', monospace",*/}
-            {/*    fontSize: '15px', fontWeight: 700,*/}
-            {/*    color: '#e2e8f0', letterSpacing: '-0.3px',*/}
-            {/*  }}>*/}
-            {/*  ihab<span style={{ color: '#06b6d4' }}>.</span>*/}
-            {/*</span>*/}
-            {/*</a>*/}
-
             {/* ── GOOEY NAV desktop ── */}
             <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }} className="desk-nav">
               <div style={{ borderRadius: '12px', padding: '2px' }}>
@@ -90,7 +69,7 @@ const Header = () => {
               </div>
             </div>
 
-            {/* ── RIGHT: socials + profile ── */}
+            {/* ── RIGHT desktop: socials + profile ── */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }} className="desk-right">
               {[
                 { icon: <Github size={15}/>,   href: 'https://github.com/RihabJenzeri' },
@@ -100,25 +79,29 @@ const Header = () => {
                   <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" style={{
                     width: '32px', height: '32px', borderRadius: '8px',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#1e3347', textDecoration: 'none', transition: 'all 0.2s ease',
+                    /* ✅ couleur visible sur fond sombre */
+                    color: '#64748b',
+                    textDecoration: 'none', transition: 'all 0.2s ease',
                   }}
                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#06b6d4'; el.style.background = 'rgba(6,182,212,0.08)'; }}
-                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#1e3347'; el.style.background = 'transparent'; }}
+                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = '#64748b'; el.style.background = 'transparent'; }}
                   >{s.icon}</a>
               ))}
               <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.07)' }} />
+              {/* ✅ ProfileTrigger desktop uniquement ici */}
               <ProfileTrigger />
             </div>
 
-            {/* ── MOBILE ── */}
+            {/* ── MOBILE controls (hamburger + profile) ── */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto', flexShrink: 0 }} className="mob-controls">
+              {/* ✅ ProfileTrigger mobile uniquement ici */}
               <ProfileTrigger />
               <button onClick={() => setMenuOpen(o => !o)} style={{
                 width: '34px', height: '34px', borderRadius: '8px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 background: menuOpen ? 'rgba(6,182,212,0.1)' : 'rgba(255,255,255,0.04)',
                 border: `1px solid ${menuOpen ? 'rgba(6,182,212,0.3)' : 'rgba(255,255,255,0.07)'}`,
-                color: menuOpen ? '#06b6d4' : '#3d5166',
+                color: menuOpen ? '#06b6d4' : '#94a3b8', /* ✅ couleur visible */
                 cursor: 'pointer', transition: 'all 0.2s ease',
               }}>
                 {menuOpen ? <X size={15}/> : <Menu size={15}/>}
@@ -146,12 +129,12 @@ const Header = () => {
                       borderLeft: `2px solid ${isActive ? '#06b6d4' : 'transparent'}`,
                       transition: 'all 0.2s ease',
                     }}>
-                      <span style={{ color: '#0d1e2d', fontSize: '9px', fontFamily: "'DM Mono', monospace", fontWeight: 700 }}>0{i + 1}</span>
+                      <span style={{ color: '#475569', fontSize: '9px', fontFamily: "'DM Mono', monospace", fontWeight: 700 }}>0{i + 1}</span>
                       <span style={{
                         fontSize: '12px', fontFamily: "'DM Mono', monospace",
                         fontWeight: isActive ? 700 : 400,
                         letterSpacing: '1.5px', textTransform: 'uppercase',
-                        color: isActive ? '#06b6d4' : '#2d4157',
+                        color: isActive ? '#06b6d4' : '#94a3b8', /* ✅ couleur visible */
                       }}>{item.label}</span>
                     </a>
                 );

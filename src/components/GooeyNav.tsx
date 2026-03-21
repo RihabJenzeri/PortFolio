@@ -32,7 +32,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
     const textRef      = useRef<HTMLSpanElement>(null);
     const [activeIndex, setActiveIndex] = useState<number>(initialActiveIndex);
 
-    // sync avec le scroll
     useEffect(() => {
         setActiveIndex(initialActiveIndex);
     }, [initialActiveIndex]);
@@ -133,18 +132,18 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           display: grid; place-items: center; z-index: 0;
         }
         .gn-text { display: none; } 
-.gn-filter {
-  filter: blur(7px) contrast(100) blur(0);
-  mix-blend-mode: screen;   // ✅ fonctionne sur fond sombre
-  z-index: 0;
-}
+        .gn-filter {
+          filter: blur(7px) contrast(100) blur(0);
+          mix-blend-mode: screen;
+          z-index: 0;
+        }
         .gn-filter::before {
           content: ""; position: absolute; inset: -75px;
           z-index: -2; background: transparent;
         }
-.gn-filter::after {
-  background: #06b6d4;  // ✅ couleur visible sur fond sombre
-}
+        .gn-filter::after {
+          background: #06b6d4;
+        }
         .gn-filter.gn-active::after {
           animation: gn-pill 0.3s ease both;
         }
@@ -178,8 +177,6 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           85%  { transform:scale(var(--scale)); opacity:1; }
           100% { transform:scale(0); opacity:0; }
         }
-
-        /* ✅ FIX PRINCIPAL : le li et le lien sont au-dessus du fond blanc */
         .gn-li {
           position: relative; cursor: pointer; list-style: none;
           color: #94a3b8; border-radius: 8px;
@@ -201,6 +198,18 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
           display: inline-block; padding: .5em 1em;
           text-decoration: none; color: inherit; outline: none;
           position: relative; z-index: 1;
+        }
+
+        /* ── Remplace le cercle R par la photo ── */
+        .gn-avatar-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: center top;
+          border: 2px solid #06b6d4;
+          box-shadow: 0 0 12px rgba(6,182,212,0.45);
+          display: block;
         }
       `}</style>
 
